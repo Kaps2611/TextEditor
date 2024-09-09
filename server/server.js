@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/google-docs-clone',{
 });
 const io = require('socket.io')(3001,{
   cors:{
-    origin:  'http://localhost:4000',
+    origin:  'http://localhost:3000',
     methods: ["GET","POST"]
   }          //it will help to send req from one url to other url
 })
@@ -18,6 +18,7 @@ const defaultValue=""
 
 // here socket helps us to communucate to client
 io.on("connection",socket=>{
+  console.log("connected");
   socket.on("get-document",async documentId =>{
     const document =await findOrCreateDocument(documentId)
     socket.join(documentId)
